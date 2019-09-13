@@ -20,6 +20,9 @@ pipeline {
       post {
         always {
           cucumber fileIncludePattern: '**/*.json', jsonReportDirectory: 'log', sortingMethod: 'ALPHABETICAL'
+          slackSend channel: "#jenkins",
+            color: 'good',
+            message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n Mais informações acesse: ${env.BUILD_URL}"
         }
       }
     }
